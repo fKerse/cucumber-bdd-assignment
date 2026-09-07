@@ -1,193 +1,49 @@
-# Cypress + Cucumber Test Otomasyon Framework'ü
+# Cucumber BDD Test Automation Assignment
 
-Bu proje, Cypress ve Cucumber kullanarak oluşturulmuş bir test otomasyon framework'üdür. BDD (Behavior Driven Development) yaklaşımı ile JavaScript tabanlı E2E testler yazmanızı sağlar.
+## Project Overview
+This repository contains an End-to-End (E2E) automated test suite developed using **Cypress**, **Cucumber (Gherkin)**, and the **Page Object Model (POM)** design pattern. The project automates an online purchase flow on the [SauceDemo](https://www.saucedemo.com/) e-commerce platform.
 
-## 🚀 Özellikler
+---
 
-- **Cypress**: Modern web uygulamaları için hızlı ve güvenilir E2E testler
-- **Cucumber**: Gherkin syntax ile okunabilir test senaryoları
-- **BDD Yaklaşımı**: İş gereksinimleri odaklı test yazımı
-- **Çoklu Tarayıcı Desteği**: Chrome, Firefox, Edge desteği
-- **Raporlama**: Detaylı test raporları ve ekran görüntüleri
-- **Özel Komutlar**: Tekrar kullanılabilir test komutları
+## 🏛️ Architecture & Folder Structure
 
-## 📁 Proje Yapısı
+The project follows a clean 3-layer BDD architecture:
+cypress/
+├── e2e/
+│   ├── features/               # Layer 1: Gherkin feature files (.feature)
+│   │   ├── login.feature
+│   │   └── product_purchase.feature
+│   ├── step_definitions/       # Layer 2: Step definitions mapping Gherkin steps to JS
+│   │   ├── LoginStepDefinition.js
+│   │   └── PurchaseSteps.js
+│   └── pages/                  # Layer 3: Page Object Model (locators & page actions)
+│       ├── LoginPage.js
+│       └── SauceDemoPage.js
 
-```
-cypress-cucumber-automation/
-├── cypress/
-│   ├── e2e/
-│   │   ├── features/           # Gherkin feature dosyaları
-│   │   │   └── google-search.feature
-│   │   └── step_definitions/   # Step definition dosyaları
-│   │       └── google-search-steps.js
-│   ├── support/
-│   │   ├── commands.js         # Özel Cypress komutları
-│   │   └── e2e.js             # Global konfigürasyon
-│   ├── fixtures/              # Test verileri
-│   ├── screenshots/           # Test ekran görüntüleri
-│   └── videos/               # Test videoları
-├── cypress.config.js          # Cypress konfigürasyonu
-├── package.json
-└── README.md
-```
+---
 
-## 🛠️ Kurulum
+## 🚀 Test Scenario
 
-1. **Projeyi klonlayın:**
-   ```bash
-   git clone <repository-url>
-   cd cypress-cucumber-automation
-   ```
+### **Product Search & Purchase Flow**
+The primary scenario (`product_purchase.feature`) validates the end-to-end checkout journey:
+1. **Given:** User navigates to the login page (`https://www.saucedemo.com/`).
+2. **When:** User logs in with valid credentials (`standard_user` / `secret_sauce`).
+3. **And:** User adds a product (*Sauce Labs Backpack*) to the shopping cart.
+4. **And:** User proceeds through cart checkout and enters personal details (*Furkan Kerse, 06000*).
+5. **And:** User completes the order.
+6. **Then:** System validates the confirmation message (*"Thank you for your order!"*).
 
-2. **Bağımlılıkları yükleyin:**
+---
+
+## 🛠️ Key Concepts & Design Patterns
+- **Behavior-Driven Development (BDD):** Uses human-readable Gherkin syntax (`Given`, `When`, `Then`) to bridge communication between technical and non-technical stakeholders.
+- **Page Object Model (POM):** Encapsulates UI elements and interaction logic inside page classes (`SauceDemoPage.js`) to maintain clean, reusable code and ease future maintenance.
+- **Assertions:** Validates checkout completion dynamically using Cypress assertions.
+
+---
+
+## 💻 Running Tests Locally
+
+1. **Install dependencies:**
    ```bash
    npm install
-   ```
-
-## 🎯 Kullanım
-
-### Test Çalıştırma Komutları
-
-```bash
-# Tüm testleri headless modda çalıştır
-npm test
-
-# Tüm testleri görünür modda çalıştır
-npm run test:headed
-
-# Chrome tarayıcısında çalıştır
-npm run test:chrome
-
-# Firefox tarayıcısında çalıştır
-npm run test:firefox
-
-# Cypress Test Runner'ı aç (interaktif mod)
-npm run cypress:open
-
-# Sadece Google testlerini çalıştır
-npm run test:google
-```
-
-### Yeni Test Senaryosu Ekleme
-
-1. **Feature dosyası oluşturun** (`cypress/e2e/features/` klasöründe):
-   ```gherkin
-   Feature: Yeni Özellik Testi
-     Açıklama buraya gelir
-
-     Scenario: Test senaryosu
-       Given Bir ön koşul
-       When Bir aksiyon gerçekleştiriyorum
-       Then Bir sonuç doğrulanıyor
-   ```
-
-2. **Step definitions oluşturun** (`cypress/e2e/step_definitions/` klasöründe):
-   ```javascript
-   import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
-
-   Given('Bir ön koşul', () => {
-     // Implementation
-   });
-
-   When('Bir aksiyon gerçekleştiriyorum', () => {
-     // Implementation
-   });
-
-   Then('Bir sonuç doğrulanıyor', () => {
-     // Implementation
-   });
-   ```
-
-## 📝 Örnek Test Senaryoları
-
-Framework ile birlikte gelen Google arama testleri:
-
-- ✅ Basit Google arama testi
-- ✅ Google arama önerileri testi  
-- ✅ Google resim arama testi
-- ✅ Parametreli test senaryoları
-
-## 🔧 Konfigürasyon
-
-### Cypress Konfigürasyonu (`cypress.config.js`)
-
-- Base URL: `https://www.google.com`
-- Viewport: 1280x720
-- Timeout değerleri: 10 saniye
-- Video kayıt: Aktif
-- Ekran görüntüsü: Hata durumunda otomatik
-
-### Cucumber Konfigürasyonu (`package.json`)
-
-- Step definitions yolu: `cypress/e2e/step_definitions/**/*.{js,ts}`
-- JSON rapor oluşturma: Aktif
-- Global step definitions: Aktif
-
-## 🎨 Özel Komutlar
-
-Framework'de kullanabileceğiniz özel Cypress komutları:
-
-```javascript
-// Google'da arama yap
-cy.googleSearch('arama terimi');
-
-// Element görünür olana kadar bekle
-cy.waitForElement('selector');
-
-// Text içeren elemente tıkla
-cy.clickElementWithText('selector', 'text');
-
-// Arama sonuçlarını doğrula
-cy.verifySearchResults('beklenen text');
-
-// Ekran görüntüsü al
-cy.takeScreenshot('test-name');
-```
-
-## 🏷️ Tag Kullanımı
-
-Testleri kategorize etmek için tag'ler kullanabilirsiniz:
-
-```gherkin
-@smoke @google
-Scenario: Hızlı test senaryosu
-
-@regression @google  
-Scenario: Detaylı test senaryosu
-```
-
-Belirli tag'li testleri çalıştırmak için:
-```bash
-npx cypress run --env tags="@smoke"
-```
-
-## 📊 Raporlama
-
-- **Video kayıtları**: `cypress/videos/` klasöründe
-- **Ekran görüntüleri**: `cypress/screenshots/` klasöründe  
-- **Cucumber JSON raporları**: `cypress/reports/cucumber-json/` klasöründe
-
-## 🤝 Katkıda Bulunma
-
-1. Fork yapın
-2. Feature branch oluşturun (`git checkout -b feature/yeni-ozellik`)
-3. Değişikliklerinizi commit edin (`git commit -am 'Yeni özellik eklendi'`)
-4. Branch'inizi push edin (`git push origin feature/yeni-ozellik`)
-5. Pull Request oluşturun
-
-## 📄 Lisans
-
-Bu proje MIT lisansı altında lisanslanmıştır.
-
-## 🆘 Sorun Giderme
-
-### Yaygın Sorunlar
-
-1. **Test başlamıyor**: Node.js versiyonunuzun 16+ olduğundan emin olun
-2. **Cucumber step'leri bulunamıyor**: Step definitions yolunu kontrol edin
-3. **Tarayıcı açılmıyor**: Cypress'i yeniden yükleyin: `npx cypress install`
-
-### Destek
-
-Sorunlarınız için GitHub Issues kullanabilirsiniz.
