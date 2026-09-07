@@ -9,7 +9,7 @@ This repository contains an End-to-End (E2E) automated test suite developed usin
 
 The project follows a clean 3-layer BDD architecture:
 
-` ` `
+```text
 cypress/
 ├── e2e/
 │   ├── features/               # Layer 1: Gherkin feature files (.feature)
@@ -21,8 +21,6 @@ cypress/
 │   └── pages/                  # Layer 3: Page Object Model (locators & page actions)
 │       ├── LoginPage.js
 │       └── SauceDemoPage.js
-` ` `
-
 ---
 
 ## 🚀 Test Scenario
