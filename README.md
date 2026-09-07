@@ -8,6 +8,8 @@ This repository contains an End-to-End (E2E) automated test suite developed usin
 ## 🏛️ Architecture & Folder Structure
 
 The project follows a clean 3-layer BDD architecture:
+
+` ` `
 cypress/
 ├── e2e/
 │   ├── features/               # Layer 1: Gherkin feature files (.feature)
@@ -19,6 +21,7 @@ cypress/
 │   └── pages/                  # Layer 3: Page Object Model (locators & page actions)
 │       ├── LoginPage.js
 │       └── SauceDemoPage.js
+` ` `
 
 ---
 
@@ -26,7 +29,7 @@ cypress/
 
 ### **Product Search & Purchase Flow**
 The primary scenario (`product_purchase.feature`) validates the end-to-end checkout journey:
-1. **Given:** User navigates to the login page (`https://www.saucedemo.com/`).
+1. **Given:** User navigates to the login page (`[https://www.saucedemo.com/](https://www.saucedemo.com/)`).
 2. **When:** User logs in with valid credentials (`standard_user` / `secret_sauce`).
 3. **And:** User adds a product (*Sauce Labs Backpack*) to the shopping cart.
 4. **And:** User proceeds through cart checkout and enters personal details (*Furkan Kerse, 06000*).
@@ -47,3 +50,5 @@ The primary scenario (`product_purchase.feature`) validates the end-to-end check
 1. **Install dependencies:**
    ```bash
    npm install
+   npx cypress open
+   npx cypress run
